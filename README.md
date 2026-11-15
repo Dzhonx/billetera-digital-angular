@@ -157,7 +157,7 @@ src
 ### Clonar el repositorio
 
 ```bash
-git clone [URL_DEL_REPOSITORIO](https://github.com/Dzhonx/billetera-digital-angular)
+git clone https://github.com/Dzhonx/billetera-digital-angular
 ```
 
 ### Ingresar al proyecto
