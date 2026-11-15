@@ -1,59 +1,298 @@
-# BilleteraAngular
+# T1 - Billetera Digital (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.7.
+## Descripción del Proyecto
 
-## Development server
+**Billetera Digital** es una aplicación web desarrollada en Angular para el curso **Soluciones Web y Aplicaciones Distribuidas** de la Universidad Privada del Norte (UPN).
 
-To start a local development server, run:
+La aplicación simula el comportamiento básico de una billetera electrónica permitiendo realizar **recargas** y **gastos** sobre un saldo disponible, manteniendo además un historial de movimientos realizados durante la ejecución de la aplicación.
 
-```bash
-ng serve
+El proyecto fue desarrollado aplicando el patrón de comunicación **Padre-Hijo** en Angular mediante las funciones modernas **input()** y **output()**, sin utilizar servicios, bases de datos ni backend, tal como se solicita en la práctica.
+
+---
+
+## Integrantes
+
+- Jhon Davys Ramirez Ledesma - N00215941
+- Juan Martin Chávez Anto - N00391243
+- Lesly Andrea Isla Ventura	- N00398983
+- Jackeline Ivette Linares Chávez - N00398835
+
+---
+
+## Objetivos Implementados
+
+- Mostrar un saldo inicial de **S/ 250.00**.
+- Registrar recargas de saldo.
+- Registrar gastos de saldo.
+- Validar que los gastos no superen el saldo disponible.
+- Validar montos mayores a cero.
+- Mostrar mensajes de error cuando corresponda.
+- Mantener un historial de movimientos.
+- Aplicar Bootstrap para una interfaz moderna y responsive.
+- Implementar comunicación entre componentes mediante `input()` y `output()`.
+
+---
+
+## Tecnologías Utilizadas
+
+| Tecnología | Versión |
+|------------|----------|
+| Angular | 20.x |
+| TypeScript | 5.x |
+| Node.js | 20+ |
+| Bootstrap | 5.3 |
+| HTML5 | Última |
+| CSS3 | Última |
+
+---
+
+## Arquitectura de Componentes
+
+### BilleteraComponent (Padre)
+
+Responsable de:
+
+- Mantener el saldo actual.
+- Mantener el historial de movimientos.
+- Recibir eventos emitidos por el componente hijo.
+- Actualizar la interfaz de usuario.
+- Mostrar movimientos registrados.
+
+### NuevoMovimientoComponent (Hijo)
+
+Responsable de:
+
+- Mostrar el formulario de registro.
+- Validar montos ingresados.
+- Verificar saldo disponible para gastos.
+- Emitir movimientos válidos al componente padre.
+
+### Modelo Movimiento
+
+Representa cada operación registrada por el usuario:
+
+```typescript
+{
+  tipo: 'Recarga' | 'Gasto',
+  monto: number
+}
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Funcionalidades
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Gestión de Saldo
 
-```bash
-ng generate component component-name
+La aplicación inicia con un saldo de:
+
+```text
+S/ 250.00
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Las recargas incrementan el saldo y los gastos lo reducen.
 
-```bash
-ng generate --help
+---
+
+### Registro de Movimientos
+
+Cada operación válida genera un registro en el historial mostrando:
+
+- Tipo de movimiento.
+- Monto.
+- Orden cronológico inverso (el más reciente aparece primero).
+
+---
+
+### Validaciones Implementadas
+
+#### Monto vacío
+
+La aplicación impide registrar operaciones sin ingresar un monto.
+
+#### Monto igual a cero
+
+No se permiten operaciones con monto cero.
+
+#### Monto negativo
+
+No se permiten montos negativos.
+
+#### Saldo insuficiente
+
+Cuando un gasto supera el saldo disponible:
+
+```text
+No tienes saldo suficiente para cubrir este gasto.
 ```
 
-## Building
+La operación es rechazada.
 
-To build the project run:
+---
 
-```bash
-ng build
+## Estructura del Proyecto
+
+```text
+src
+└── app
+    ├── billetera
+    │   ├── billetera.ts
+    │   ├── billetera.html
+    │   └── billetera.css
+    │
+    ├── nuevo-movimiento
+    │   ├── nuevo-movimiento.ts
+    │   ├── nuevo-movimiento.html
+    │   └── nuevo-movimiento.css
+    │
+    ├── movimientos.model.ts
+    ├── app.ts
+    └── app.html
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Instalación
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Clonar el repositorio
 
 ```bash
-ng e2e
+git clone URL_DEL_REPOSITORIO
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Ingresar al proyecto
 
-## Additional Resources
+```bash
+cd billetera-angular
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
+## Ejecución del Proyecto
+
+Iniciar el servidor de desarrollo:
+
+```bash
+ng serve -o
+```
+
+La aplicación estará disponible en:
+
+```text
+http://localhost:4200
+```
+
+---
+
+## Casos de Prueba
+
+### Caso 1
+
+Acción:
+
+```text
+Recarga S/ 100.00
+```
+
+Resultado esperado:
+
+```text
+Saldo: S/ 350.00
+```
+
+---
+
+### Caso 2
+
+Acción:
+
+```text
+Gasto S/ 50.00
+```
+
+Resultado esperado:
+
+```text
+Saldo: S/ 300.00
+```
+
+---
+
+### Caso 3
+
+Acción:
+
+```text
+Gasto S/ 400.00
+```
+
+Resultado esperado:
+
+```text
+Mensaje de saldo insuficiente.
+Saldo sin cambios.
+```
+
+---
+
+### Caso 4
+
+Acción:
+
+```text
+Monto = 0
+```
+
+Resultado esperado:
+
+```text
+Operación rechazada.
+```
+
+---
+
+### Caso 5
+
+Acción:
+
+```text
+Monto negativo.
+```
+
+Resultado esperado:
+
+```text
+Operación rechazada.
+```
+
+---
+
+## Integrantes
+
+- Nombre Completo 1 – Código
+- Nombre Completo 2 – Código
+
+---
+
+## Repositorio
+
+URL_DEL_REPOSITORIO
+
+---
+
+## Conclusiones
+
+La implementación permitió aplicar los conceptos fundamentales de Angular relacionados con:
+
+- Creación de componentes standalone.
+- Comunicación entre componentes mediante `input()` y `output()`.
+- Binding de propiedades y eventos.
+- Directivas de control de flujo (`@if` y `@for`).
+- Validación de formularios.
+- Maquetación responsiva utilizando Bootstrap.
