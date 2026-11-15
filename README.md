@@ -157,7 +157,7 @@ src
 ### Clonar el repositorio
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone [URL_DEL_REPOSITORIO](https://github.com/Dzhonx/billetera-digital-angular)
 ```
 
 ### Ingresar al proyecto
@@ -273,16 +273,9 @@ Operación rechazada.
 
 ---
 
-## Integrantes
-
-- Nombre Completo 1 – Código
-- Nombre Completo 2 – Código
-
----
-
 ## Repositorio
 
-URL_DEL_REPOSITORIO
+[URL_DEL_REPOSITORIO](https://github.com/Dzhonx/billetera-digital-angular)
 
 ---
 
